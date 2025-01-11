@@ -1,8 +1,8 @@
 {
   "name": "mstrans-prod",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Proporciona servicios como la visualización de productos, creación de transacciones, integración con la API  para procesar pagos, actualización del stock y asignación de productos al cliente.",
+  "author": "John Edison Upegui Acevedo",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
