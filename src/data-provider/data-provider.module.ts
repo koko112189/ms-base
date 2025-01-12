@@ -1,4 +1,10 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { configService } from 'src/common/configuration/database.config';
 
-@Module({})
+@Module({
+    imports: [
+        TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    ],
+})
 export class DataProviderModule {}
