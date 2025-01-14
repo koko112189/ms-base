@@ -1,3 +1,7 @@
+import { randomUUID } from "crypto";
+import { CategoryEntity } from "../entities/category.entity";
+import { ItemEntity } from "../entities/item.entity";
+
 export const CategorySeedData = [
     {
       code: 'ELECTRONICS2',
@@ -20,7 +24,6 @@ export const CategorySeedData = [
       sku: 'ELEC-001',
       name: 'Smartphone X',
       description: 'Latest smartphone model',
-      categoryId: 'ELECTRONICS2',
       basePrice: 599.99,
       costPrice: 399.99,
       isActive: true,
@@ -31,7 +34,6 @@ export const CategorySeedData = [
       sku: 'CLO-001',
       name: 'T-Shirt Basic',
       description: 'Cotton basic t-shirt',
-      categoryId: 'CLOTHING2',
       basePrice: 19.99,
       costPrice: 5.99,
       isActive: true,
@@ -54,3 +56,41 @@ export const CategorySeedData = [
       updatedBy: 'John Doe'
     }
   ];
+
+  export const generateRandomCategory = () => {
+    return {
+      code: randomUUID(),
+      name: 'fake cat' + randomUUID(),
+      description: 'lorem ipsum',
+      priority: 0,
+      isActive: true,
+      createdBy: 'Seeder',
+      updatedBy: 'Seeder',
+    };
+  };
+  
+  export const generateRandomItem = (category: CategoryEntity) => {
+    return {
+      sku: randomUUID(),
+      name: 'fake name' + randomUUID(),
+      description: 'lorem ipsum',
+      basePrice: Math.floor(Math.random() * 1000), // 0-999
+      costPrice: Math.floor(Math.random() * 800),  // 0-799
+      discountPrice: Math.floor(Math.random() * 500), // 0-499
+      category: category,
+      isActive: true,
+      createdBy: 'Seeder',
+      updatedBy: 'Seeder',
+    };
+  };
+  
+  export const generateRandomInventory = (item: ItemEntity) => {
+    return {
+      currentStock: Math.floor(Math.random() * 100), // 0-99
+      warehouseLocation: 'fake location' + randomUUID(),
+      item: item,
+      isActive: true,
+      createdBy: 'Seeder',
+      updatedBy: 'Seeder',
+    };
+  };

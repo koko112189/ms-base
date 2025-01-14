@@ -5,41 +5,38 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ItemDto } from "src/controller/dto/item/item.dto";
 import { InventoryEntity } from "src/data-provider/entities/inventory.entity";
+import { ItemUpdateDto } from "src/controller/dto/item/itemUpdate.dto";
 
 @Injectable()
 export class ItemProvider implements IItemProvider {
-    constructor(@InjectRepository(ItemEntity) private itemRepository: Repository<ItemEntity>) { }
+    constructor(@InjectRepository(ItemEntity) private itemRepository: Repository<ItemEntity>,@InjectRepository(InventoryEntity) private inventoryRepository: Repository<InventoryEntity>) { }
 
     async findAll(): Promise<ItemEntity[]> {
         return await this.itemRepository.find({ relations: ['category', 'inventory'] });
     }
-    async update(id: string, item: ItemDto): Promise<ItemEntity> {
-        // const _item = await this.itemRepository.findOne({
-        //     where: { id },
-        //     relations: ['category', 'inventory'],
-        // });
 
-        // if (_item.category.id) {
-        //     const category = await this.categoriaRepository.findOne({
-        //       where: { id: updateProductDto.categoriaId },
-        //     });
-      
-        //     if (!category) {
-        //       throw new NotFoundException('Categoría no encontrada');
-        //     }
-      
-        //     product.categoria = category;
-        //   }
+    async finById(id: string): Promise<ItemEntity> {
+        return await this.itemRepository.findOne({ where: { id }, relations: ['category', 'inventory'] });
+    }
 
-        // if (!_item) {
-        //     throw new NotFoundException('ítem no encontrado');
-        // }
-        // const itemToUpdate: Partial<ItemEntity> = {
-        //     ...item,
-        //     inventory: item.inventory?.map(inv => Object.assign(new InventoryEntity(), inv))
-        // };
-        // await this.itemRepository.update(id, itemToUpdate);
-        // return await this.itemRepository.findOne({ where: { id } });
-        return null;
+    async update(id: string, item: ItemUpdateDto): Promise<ItemEntity> {
+        const itemEntity = await this.itemRepository.findOne({
+            where: { id },
+            relations: ['inventory'], 
+        });
+
+        if (!itemEntity) {
+            throw new NotFoundException('Item not found');
+        }
+
+        if (!itemEntity.inventory) {
+            throw new NotFoundException('Inventory not found for this item');
+        }
+
+        itemEntity.inventory.currentStock = item.currentStock;
+
+        await this.inventoryRepository.save(itemEntity.inventory);
+
+        return itemEntity;
     }
 }

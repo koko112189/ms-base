@@ -43,10 +43,9 @@ export class ItemDto {
     isActive?: boolean
 
     @ApiProperty({
-        type: () => [InventoryDto],
-        isArray: true
+        type: () => InventoryDto,
     }
     )
     @Type(() => InventoryDto)
-    inventory: InventoryDto[]
+    inventory: InventoryDto
 }

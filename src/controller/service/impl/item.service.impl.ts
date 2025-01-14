@@ -3,6 +3,7 @@ import { IItemService } from "../item.service";
 import { ItemEntity } from "src/data-provider/entities/item.entity";
 import { IItemUc } from "src/core/use-case/item.uc";
 import { ItemDto } from "src/controller/dto/item/item.dto";
+import { ItemUpdateDto } from "src/controller/dto/item/itemUpdate.dto";
 
 @Injectable()
 export class ItemService implements IItemService {
@@ -12,7 +13,10 @@ export class ItemService implements IItemService {
     async findAll(): Promise<ItemEntity[]> {
         return await this.itemUc.findAll();
     }
-    async update(id: string, item: ItemDto): Promise<ItemEntity> {
+    async findById(id: string): Promise<ItemEntity> {
+        return await this.itemUc.finById(id);
+    }
+    async update(id: string, item: ItemUpdateDto): Promise<ItemEntity> {
        return await this.itemUc.update(id, item);
     }
 

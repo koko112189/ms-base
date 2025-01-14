@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import {  Column, Entity, OneToMany, Tree, TreeChildren, TreeParent } from "typeorm";
 import { ItemEntity } from "./item.entity";
 import { BaseEntity } from "./base.entity";
@@ -10,6 +10,10 @@ export class CategoryEntity  extends BaseEntity {
     @IsNotEmpty()
     @IsString()
     code: string;
+
+    @Column({ type: 'int', default: 0 })
+    @IsNumber()
+    priority: number;
 
     @Column({ length: 100 })
     @IsNotEmpty()
