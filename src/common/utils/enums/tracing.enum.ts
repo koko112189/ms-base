@@ -1,0 +1,18 @@
+export enum EStatusTracingGeneral { 
+    FAILED = 'FAILED',
+    ERROR = 'ERROR',
+    STATUS_SUCCESS = "SUCCESS",
+    STATUS_FAILED = "FAILED",
+    LEGACY_SUCCESS = 'LEGACY_SUCCESS',
+    LEGACY_ERROR = 'LEGACY_ERROR',
+    LEGACY_WARN = 'LEGACY_WARN',
+    BD_SUCCESS = 'BD_SUCCESS',
+    BD_ERROR = 'BD_ERROR',
+    BD_WARN = 'BD_WARN'
+}
+
+export enum ETaskTracingGeneral {
+   FINAL_REQUEST = 'FINAL_REQUEST',
+   INICIO_REQUEST = "INICIO_REQUEST",
+}
+

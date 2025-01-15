@@ -5,6 +5,8 @@ import { IItemService } from "./service/item.service";
 import { ItemEntity } from "src/data-provider/entities/item.entity";
 import { ItemDto } from "./dto/item/item.dto";
 import { ItemUpdateDto } from "./dto/item/itemUpdate.dto";
+import GeneralUtils from "src/common/utils/general-utils";
+import { Etask, EtaskDesc } from "src/common/utils/enums/task.enum";
 
 @ApiTags('Item')
 @Controller('item')
@@ -34,13 +36,9 @@ export class ItemController {
      * @returns updated item
      * @throws message controller: + error
      */
-    async update(@Query('id') id: string,@Body() item: ItemUpdateDto) {
-        
-        try {
-            return this.itemService.update(id, item);
-        } catch (error) {
-            throw "message controller:" + error;
-            
-        }
+    async update(@Query('id') id: string, @Body() item: ItemUpdateDto) {
+
+        return this.itemService.update(id, item);
+
     }
 }
