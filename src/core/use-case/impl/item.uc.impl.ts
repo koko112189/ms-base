@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { IItemUc } from "../item.uc";
-import { ItemEntity } from "src/data-provider/entities/item.entity";
-import { IItemProvider } from "src/data-provider/provider/item.provider";
-import { ItemDto } from "src/controller/dto/item/item.dto";
+import { IExampleUc } from "../item.uc";
+import { ExampleEntity } from "src/data-provider/entities/example.entity";
+import { IExampleProvider } from "src/data-provider/provider/item.provider";
+import { exampleDto } from "src/controller/dto/item/item.dto";
 import { ItemUpdateDto } from "src/controller/dto/item/itemUpdate.dto";
 import GeneralUtils from "src/common/utils/general-utils";
 import { Etask, EtaskDesc } from "src/common/utils/enums/task.enum";
@@ -11,17 +11,17 @@ import { ResponseService } from "src/controller/dto/response-service.dto";
 import { EmessageMapping } from "src/common/utils/enums/message.enum";
 
 @Injectable()
-export class ItemUcImpl implements IItemUc{
+export class ItemUcImpl implements IExampleUc{
 
-    constructor(public readonly itemProvider: IItemProvider) { }
-    async findAll(): Promise<ItemEntity[]> {
+    constructor(public readonly itemProvider: IExampleProvider) { }
+    async findAll(): Promise<ExampleEntity[]> {
         try {
             return await this.itemProvider.findAll();
         } catch (error) {
             throw error;
         }
     }
-    async finById(id: string): Promise<ItemEntity> {
+    async finById(id: string): Promise<ExampleEntity> {
         try {
             return await this.itemProvider.finById(id);
         } catch (error) {

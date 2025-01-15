@@ -1,24 +1,23 @@
 import { Injectable } from "@nestjs/common";
-import { IItemService } from "../item.service";
-import { ItemEntity } from "src/data-provider/entities/item.entity";
-import { IItemUc } from "src/core/use-case/item.uc";
-import { ItemDto } from "src/controller/dto/item/item.dto";
-import { ItemUpdateDto } from "src/controller/dto/item/itemUpdate.dto";
+import { IExampleDto } from "../example.service";
+import { ExampleEntity } from "src/data-provider/entities/example.entity";
+import { IExampleUc } from "src/core/use-case/item.uc";
+import { exampleDto } from "src/controller/dto/item/item.dto";
 import { ResponseService } from "src/controller/dto/response-service.dto";
 import { EmessageMapping } from "src/common/utils/enums/message.enum";
 
 @Injectable()
-export class ItemService implements IItemService {
+export class ItemService implements IExampleDto {
 
-    constructor(private readonly itemUc: IItemUc) { }
+    constructor(private readonly itemUc: IExampleUc) { }
 
-    async findAll(): Promise<ItemEntity[]> {
+    async findAll(): Promise<ExampleEntity[]> {
         return await this.itemUc.findAll();
     }
-    async findById(id: string): Promise<ItemEntity> {
+    async findById(id: string): Promise<ExampleEntity> {
         return await this.itemUc.finById(id);
     }
-    async update(id: string, item: ItemUpdateDto): Promise<ResponseService<any>> {
+    async update(id: string, item: exampleDto): Promise<ResponseService<any>> {
         return await this.itemUc.update(id, item);
     }
 

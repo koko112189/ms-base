@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from 'src/common/configuration/database.config';
-import { IItemProvider } from './provider/item.provider';
+import { IExampleProvider } from './provider/item.provider';
 import { ItemProvider } from './provider/impl/item.provider.impl';
-import { ItemEntity } from './entities/item.entity';
+import { ExampleEntity } from './entities/example.entity';
 import { CategoryEntity } from './entities/category.entity';
 import { InventoryEntity } from './entities/inventory.entity';
 import { SeederService } from './seeds/seeder.service';
@@ -22,16 +22,16 @@ import { ServiceTracingUcimpl } from 'src/core/use-case/impl/service-tracing.res
 @Module({
     imports: [
         TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
-        TypeOrmModule.forFeature([ItemEntity, CategoryEntity, InventoryEntity, MessageEntity, ServiceErrorEntity, ServiceTracingEntity])
+        TypeOrmModule.forFeature([ExampleEntity, CategoryEntity, InventoryEntity, MessageEntity, ServiceErrorEntity, ServiceTracingEntity])
     ],
     providers: [
-        {provide: IItemProvider, useClass: ItemProvider},
+        {provide: IExampleProvider, useClass: ItemProvider},
         {provide: IMessageProvider, useClass: MessageProvider},
         {provide: IServiceErrorProvider, useClass: ServiceErrorProvider},
         {provide: IServiceTracingProvider, useClass: ServiceTracingProvider},
         {provide: IServiceTracingUc, useClass: ServiceTracingUcimpl},
         SeederService
     ],
-    exports: [IItemProvider, SeederService, IMessageProvider, IServiceErrorProvider, IServiceTracingProvider, IServiceTracingUc]
+    exports: [IExampleProvider, SeederService, IMessageProvider, IServiceErrorProvider, IServiceTracingProvider, IServiceTracingUc]
 })
 export class DataProviderModule {}

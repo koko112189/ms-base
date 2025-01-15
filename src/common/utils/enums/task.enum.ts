@@ -4,7 +4,6 @@ export enum Etask{
     DELETE = 'DELETE',
     LOAD_MESSAGE = 'LOAD_MESSAGE',
     SERVICE_ERROR = "SERVICE_ERROR",
-    UPDATE_ITEM = "UPDATE_ITEM"
 }
 
 export enum EtaskDesc{
@@ -12,5 +11,4 @@ export enum EtaskDesc{
     UPDATE = 'Updated', 
     DELETE = 'Deleted',
     LOAD_MESSAGE = 'Load messages',
-    UPDATE_ITEM = "UPDATE_ITEM"
 }

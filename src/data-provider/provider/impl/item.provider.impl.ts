@@ -1,27 +1,27 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { IItemProvider } from "../item.provider";
-import { ItemEntity } from "src/data-provider/entities/item.entity";
+import { IExampleProvider } from "../item.provider";
+import { ExampleEntity } from "src/data-provider/entities/example.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { ItemDto } from "src/controller/dto/item/item.dto";
+import { exampleDto } from "src/controller/dto/item/item.dto";
 import { InventoryEntity } from "src/data-provider/entities/inventory.entity";
 import { ItemUpdateDto } from "src/controller/dto/item/itemUpdate.dto";
 import GeneralUtils from "src/common/utils/general-utils";
 import { Etask, EtaskDesc } from "src/common/utils/enums/task.enum";
 
 @Injectable()
-export class ItemProvider implements IItemProvider {
-    constructor(@InjectRepository(ItemEntity) private itemRepository: Repository<ItemEntity>,@InjectRepository(InventoryEntity) private inventoryRepository: Repository<InventoryEntity>) { }
+export class ItemProvider implements IExampleProvider {
+    constructor(@InjectRepository(ExampleEntity) private itemRepository: Repository<ExampleEntity>,@InjectRepository(InventoryEntity) private inventoryRepository: Repository<InventoryEntity>) { }
 
-    async findAll(): Promise<ItemEntity[]> {
+    async findAll(): Promise<ExampleEntity[]> {
         return await this.itemRepository.find({ relations: ['category', 'inventory'] });
     }
 
-    async finById(id: string): Promise<ItemEntity> {
+    async finById(id: string): Promise<ExampleEntity> {
         return await this.itemRepository.findOne({ where: { id }, relations: ['category', 'inventory'] });
     }
 
-    async update(id: string, item: ItemUpdateDto): Promise<ItemEntity> {
+    async update(id: string, item: ItemUpdateDto): Promise<ExampleEntity> {
         try {
             const itemEntity = await this.itemRepository.findOne({
                 where: { id },

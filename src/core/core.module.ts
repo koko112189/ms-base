@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DataProviderModule } from 'src/data-provider/data-provider.module';
-import { IItemUc } from './use-case/item.uc';
+import { IExampleUc } from './use-case/item.uc';
 import { ItemUcImpl } from './use-case/impl/item.uc.impl';
 import { IMessageUc } from './use-case/message.uc';
 import { MessageUcimpl } from './use-case/impl/message.uc.impl';
@@ -12,12 +12,12 @@ import { IServiceTracingUc } from './use-case/service-tracing.resource.uc';
 @Module({
     imports: [DataProviderModule],
     providers: [
-        { provide: IItemUc, useClass: ItemUcImpl},
+        { provide: IExampleUc, useClass: ItemUcImpl},
         { provide: IMessageUc, useClass: MessageUcimpl},
         { provide: IServiceErrorUc, useClass: ServiceErrorUcimpl},
         { provide: IServiceTracingUc, useClass: ServiceTracingUcimpl},
     ],
-    exports: [IItemUc, IMessageUc, IServiceErrorUc, IServiceTracingUc]})
+    exports: [IExampleUc, IMessageUc, IServiceErrorUc, IServiceTracingUc]})
 export class CoreModule {
     
 }

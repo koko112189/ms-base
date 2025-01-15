@@ -53,6 +53,6 @@ export default class GeneralUtils {
       }
 
       public static getOrigin(url: string): string {
-        return `${"/ms-product"}${(url?.includes('?')) ? url.slice(0, url.indexOf('?')) : url}`;
+        return `${"/ms-base"}${(url?.includes('?')) ? url.slice(0, url.indexOf('?')) : url}`;
       }
 }
