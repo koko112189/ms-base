@@ -4,6 +4,11 @@ import { ItemEntity } from "src/data-provider/entities/item.entity";
 import { IItemProvider } from "src/data-provider/provider/item.provider";
 import { ItemDto } from "src/controller/dto/item/item.dto";
 import { ItemUpdateDto } from "src/controller/dto/item/itemUpdate.dto";
+import GeneralUtils from "src/common/utils/general-utils";
+import { Etask, EtaskDesc } from "src/common/utils/enums/task.enum";
+import { response } from "express";
+import { ResponseService } from "src/controller/dto/response-service.dto";
+import { EmessageMapping } from "src/common/utils/enums/message.enum";
 
 @Injectable()
 export class ItemUcImpl implements IItemUc{
@@ -23,11 +28,13 @@ export class ItemUcImpl implements IItemUc{
             throw error;
         }
     }
-    async update(id: string, item: ItemUpdateDto): Promise<ItemEntity> {
+    async update(id: string, item: ItemUpdateDto): Promise<ResponseService> {
         try {
-            return await this.itemProvider.update(id, item);
+            const updatedItem = await this.itemProvider.update(id, item);
+            return new ResponseService(true, EmessageMapping.ITEM_UPDATED, 200, updatedItem);
         } catch (error) {
-            
+            GeneralUtils.assignTaskError(error, Etask.UPDATE_ITEM, EtaskDesc.UPDATE_ITEM);
+            throw error;
         }
     }
 }
