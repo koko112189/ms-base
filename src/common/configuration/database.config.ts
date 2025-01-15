@@ -4,7 +4,7 @@ require('dotenv').config();
 
 class DatabaseConfig {
 
-    constructor(private env: { [k: string]: string | undefined }) { }
+    constructor(private env: { [k: string]: string | undefined }) { } 
 
     private getValue(key: string, throwOnMissing = true): string {
         const value = this.env[key];
