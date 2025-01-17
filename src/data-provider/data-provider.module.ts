@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from 'src/common/configuration/database.config';
-import { IExampleProvider } from './provider/item.provider';
-import { ItemProvider } from './provider/impl/item.provider.impl';
-import { ExampleEntity } from './entities/example.entity';
-import { CategoryEntity } from './entities/category.entity';
-import { InventoryEntity } from './entities/inventory.entity';
+import { ICustomerProvider } from './provider/customer.provider';
+import { CustomerProvider } from './provider/impl/customer.provider.impl';
+import { CustomerEntity } from './entities/customer.entity';
 import { SeederService } from './seeds/seeder.service';
 import { MessageEntity } from './entities/message.entity';
 import { ServiceErrorEntity } from './entities/service-error.entity';
@@ -18,20 +16,22 @@ import { IServiceTracingProvider } from './provider/service-tracing.provider';
 import { ServiceTracingProvider } from './provider/impl/service-tracing.provider.impl';
 import { IServiceTracingUc } from 'src/core/use-case/service-tracing.resource.uc';
 import { ServiceTracingUcimpl } from 'src/core/use-case/impl/service-tracing.resource.uc.impl';
+import { ShippingAddressEntity } from './entities/shipping-addres.entity';
+import { BillingAddressEntity } from './entities/billing-addres.entity';
 
 @Module({
     imports: [
         TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
-        TypeOrmModule.forFeature([ExampleEntity, CategoryEntity, InventoryEntity, MessageEntity, ServiceErrorEntity, ServiceTracingEntity])
+        TypeOrmModule.forFeature([CustomerEntity, ShippingAddressEntity, BillingAddressEntity, MessageEntity, ServiceErrorEntity, ServiceTracingEntity])
     ],
     providers: [
-        {provide: IExampleProvider, useClass: ItemProvider},
+        {provide: ICustomerProvider, useClass: CustomerProvider},
         {provide: IMessageProvider, useClass: MessageProvider},
         {provide: IServiceErrorProvider, useClass: ServiceErrorProvider},
         {provide: IServiceTracingProvider, useClass: ServiceTracingProvider},
         {provide: IServiceTracingUc, useClass: ServiceTracingUcimpl},
         SeederService
     ],
-    exports: [IExampleProvider, SeederService, IMessageProvider, IServiceErrorProvider, IServiceTracingProvider, IServiceTracingUc]
+    exports: [ICustomerProvider, SeederService, IMessageProvider, IServiceErrorProvider, IServiceTracingProvider, IServiceTracingUc]
 })
 export class DataProviderModule {}
