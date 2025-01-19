@@ -7,9 +7,12 @@ import { EmessageMapping } from "src/common/utils/enums/message.enum";
 import { CustomerDataDto } from "src/controller/dto/customer/customer.dto";
 
 @Injectable()
-export class ItemService implements ICustomerService {
+export class CustomerService implements ICustomerService {
 
     constructor(private readonly customerUc: ICustomerUc) { }
+    findByEmail(email: string): Promise<CustomerEntity> {
+        return this.customerUc.findByEmail(email);
+    }
     create(customer: CustomerDataDto): Promise<ResponseService<any>> {
         return this.customerUc.create(customer);
     }

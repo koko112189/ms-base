@@ -15,6 +15,9 @@ export class CustomerProvider implements ICustomerProvider {
         @InjectRepository(ShippingAddressEntity) private shippingAddressRepository: Repository<ShippingAddressEntity>
     )
         { }
+    findByEmail(email: string): Promise<CustomerEntity> {
+        return this.customerRepository.findOne({ where: { email: email }, relations: ['billingAddress', 'shippingAddress'] });
+    }
     async create(customerDto: CustomerDataDto): Promise<CustomerEntity> {
         const billingAddress = this.billingAddressRepository.create({
             addressLine1: customerDto.billing_address.address_line_1,

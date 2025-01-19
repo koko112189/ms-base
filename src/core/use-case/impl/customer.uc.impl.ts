@@ -13,6 +13,13 @@ import { CustomerDataDto } from "src/controller/dto/customer/customer.dto";
 export class CustomerUcImpl implements ICustomerUc{
 
     constructor(public readonly itemProvider: ICustomerProvider) { }
+    findByEmail(email: string): Promise<CustomerEntity> {
+        try {
+            return this.itemProvider.findByEmail(email);
+        } catch (error) {
+            throw error;
+        }
+    }
     async create(customer: CustomerDataDto): Promise<ResponseService> {
         try {
             const createdCustomer = await this.itemProvider.create(customer);

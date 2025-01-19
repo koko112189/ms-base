@@ -6,6 +6,7 @@ import { CustomerEntity } from "src/data-provider/entities/customer.entity";
 @Injectable()
 export abstract class ICustomerUc {
     abstract create(customer: CustomerDataDto): Promise<ResponseService>;
+    abstract findByEmail(email: string): Promise<CustomerEntity>;
     abstract findAll(): Promise<CustomerEntity[]>;
     abstract finById(id: string): Promise<CustomerEntity>;
     abstract update(id: string, customer: CustomerDataDto): Promise<ResponseService>;
