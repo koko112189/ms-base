@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from 'src/common/configuration/database.config';
-import { IExampleProvider } from './provider/item.provider';
-import { ItemProvider } from './provider/impl/item.provider.impl';
-import { ExampleEntity } from './entities/example.entity';
-import { CategoryEntity } from './entities/category.entity';
-import { InventoryEntity } from './entities/inventory.entity';
+import { ITransactionProvider } from './provider/transaction.provider';
+import { TransactionProvider } from './provider/impl/transaction.provider.impl';
+import { TransactionEntity } from './entities/transaction.entity';
 import { SeederService } from './seeds/seeder.service';
 import { MessageEntity } from './entities/message.entity';
 import { ServiceErrorEntity } from './entities/service-error.entity';
@@ -22,16 +20,16 @@ import { ServiceTracingUcimpl } from 'src/core/use-case/impl/service-tracing.res
 @Module({
     imports: [
         TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
-        TypeOrmModule.forFeature([ExampleEntity, CategoryEntity, InventoryEntity, MessageEntity, ServiceErrorEntity, ServiceTracingEntity])
+        TypeOrmModule.forFeature([TransactionEntity, MessageEntity, ServiceErrorEntity, ServiceTracingEntity])
     ],
     providers: [
-        {provide: IExampleProvider, useClass: ItemProvider},
+        {provide: ITransactionProvider, useClass: TransactionProvider},
         {provide: IMessageProvider, useClass: MessageProvider},
         {provide: IServiceErrorProvider, useClass: ServiceErrorProvider},
         {provide: IServiceTracingProvider, useClass: ServiceTracingProvider},
         {provide: IServiceTracingUc, useClass: ServiceTracingUcimpl},
         SeederService
     ],
-    exports: [IExampleProvider, SeederService, IMessageProvider, IServiceErrorProvider, IServiceTracingProvider, IServiceTracingUc]
+    exports: [ITransactionProvider, SeederService, IMessageProvider, IServiceErrorProvider, IServiceTracingProvider, IServiceTracingUc]
 })
 export class DataProviderModule {}
